@@ -1,0 +1,81 @@
+# OTP Verification Test Cases
+
+## 1. OTP Generation
+
+### Test Case 1: Verify OTP is generated and sent successfully
+- **Input**: Trigger OTP generation.
+- **Expected Output**: OTP is received on the registered email or phone number.
+
+### Test Case 2: Verify OTP length
+- **Input**: Generated OTP.
+- **Expected Output**: OTP contains exactly 6 numeric characters.
+
+### Test Case 3: Verify OTP uniqueness
+- **Input**: Trigger multiple OTP generations in a short period.
+- **Expected Output**: OTPs generated are different each time.
+
+---
+
+## 2. OTP Submission
+
+### Test Case 4: Successful OTP verification
+- **Input**: Enter the correct OTP received.
+- **Expected Output**: OTP is accepted, and the user is verified.
+
+### Test Case 5: Verification fails with incorrect OTP
+- **Input**: Enter an incorrect OTP.
+- **Expected Output**: Verification fails with an appropriate error message, e.g., "Invalid OTP."
+
+### Test Case 6: Verification fails with expired OTP
+- **Input**: Enter an expired OTP.
+- **Expected Output**: Verification fails with an error message, e.g., "OTP has expired."
+
+---
+
+## 3. OTP Expiry
+
+### Test Case 7: OTP expires after defined time
+- **Input**: Wait until the OTP expires and then attempt verification.
+- **Expected Output**: Verification fails with a message like "OTP expired."
+
+### Test Case 8: OTP reuse is not allowed
+- **Input**: Verify with a valid OTP and then attempt to use it again.
+- **Expected Output**: Reuse of the OTP is not allowed.
+
+---
+
+## 4. Resending OTP
+
+### Test Case 9: Request a new OTP after expiry
+- **Input**: Request a new OTP after the expiry of the current OTP.
+- **Expected Output**: A new OTP is generated and sent.
+
+### Test Case 10: Verify maximum resend attempts
+- **Input**: Exceed the maximum OTP resend attempts.
+- **Expected Output**: Further OTP requests are blocked, with a message like "Maximum resend attempts reached."
+
+---
+
+## 5. Edge Cases
+
+### Test Case 11: Empty OTP field
+- **Input**: Submit an empty OTP field.
+- **Expected Output**: An error message is displayed, e.g., "OTP cannot be empty."
+
+### Test Case 12: Invalid characters in OTP
+- **Input**: Enter an OTP with letters or special characters.
+- **Expected Output**: Verification fails with a message like "Invalid OTP format."
+
+### Test Case 13: OTP request for unregistered user
+- **Input**: Request OTP for an unregistered phone number/email.
+- **Expected Output**: Request is denied with a message like "User not registered."
+
+---
+
+## 6. Security
+
+### Test Case 14: Secure transmission of OTP
+- **Expected Output**: OTP transmission complies with security protocols (like HTTPS).
+
+### Test Case 15: OTP not logged in system logs
+- **Expected Output**: OTP does not appear in logs.
