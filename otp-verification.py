@@ -1,8 +1,8 @@
 import random
 import smtplib
+import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email_validator import validate_email, EmailNotValidError
 
 def generate_otp(length=6):
     """Generates a random OTP with the specified length (4 to 8 digits)."""
@@ -13,8 +13,8 @@ def generate_otp(length=6):
 def send_email(otp, recipient_email):
     """Sends the OTP to the recipient's email address."""
     # Replace with your email credentials
-    sender_email = "vedantimahadik2004@gmail.com"
-    sender_password = "lsxf slbx zwci cglg"
+    sender_email = "sagurbhai420@gmail.com"
+    sender_password = "mffu cjyk kvgp nywf"
     smtp_server = "smtp.gmail.com"  # Adjust for your email provider
     smtp_port = 587
     
@@ -37,35 +37,42 @@ def send_email(otp, recipient_email):
     except Exception as e:
         print(f"Failed to send email: {e}")
 
+def is_valid_email(email):
+    """Validate email using regex."""
+    email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+    return re.match(email_regex, email) is not None
+
 def main():
     try:
         # Input email and validate
         email = input("Enter a valid email address: ").strip()
-        validate_email(email)  # Validate email format
+        if not is_valid_email(email):
+            print(f"Invalid email address format: {email}")
+            return
         
-        # Generate OTP
-        otp_length = int(input("Enter the OTP length (4-8): "))
-        otp = generate_otp(otp_length)
-        
+        # Prompt until valid OTP length is entered
+        while True:
+            try:
+                otp_length = int(input("Enter the OTP length (4-8): "))
+                otp = generate_otp(otp_length)
+                break  # Exit the loop if OTP is generated successfully
+            except ValueError as e:
+                print(e)  # Print the error if OTP length is invalid
+                continue  # Prompt the user to enter a valid OTP length
+
         # Send OTP via email
         send_email(otp, email)
-    except EmailNotValidError as e:
-        print(f"Invalid email address: {e}")
-    except ValueError as e:
-        print(f"Error: {e}")
 
-        # Prompt user to enter the OTP
+        # Prompt user to enter OTP for verification
         input_otp = input("Enter the OTP sent to your email: ").strip()
         if input_otp == otp:
             print("OTP verified successfully.")
         else:
             print("Invalid OTP. Verification failed.")
-    except EmailNotValidError as e:
-        print(f"Invalid email address: {e}")
-    except ValueError as e:
-        print(f"Error: {e}")
 
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+# Correct the typo here: use __name__ instead of _name_
 if __name__ == "__main__":
     main()
-
-
